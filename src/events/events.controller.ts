@@ -13,12 +13,9 @@ export class EventsController {
     return this.eventsService.create(dto);
   }
 
-  @Get('/all/:after')
-  findAll(@Param('after') after: number) {
-    if (after === undefined) {
-      return this.eventsService.findAll();
-    }
-    return this.eventsService.findAllAfter(after);
+  @Get()
+  findAll() {
+    return this.eventsService.findAll();
   }
 
   @Get('event/:id')

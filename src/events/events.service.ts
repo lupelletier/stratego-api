@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EventDto } from './dto/event.dto';
 import { EventsGateway } from './events.gateway';
+import { EventTypes } from './enums/event-types.enum';
 
 @Injectable()
 export class EventsService {
@@ -18,6 +19,12 @@ export class EventsService {
   }
 
   findAll() {
+    const dto = new EventDto();
+    dto.id = 1;
+    dto.type = EventTypes.OPEN;
+    dto.game_id = 1;
+    dto.date = new Date();
+    this.gateway.broadcast(dto);
     return this.events;
   }
 

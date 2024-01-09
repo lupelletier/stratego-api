@@ -1,4 +1,4 @@
 export enum ColorTeam {
-    blue = 'BLUE',
-    red = 'RED',
+    BLUE = 'blue',
+    RED = 'red',
 };

@@ -1,9 +1,9 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody, ConnectedSocket } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { EventDto } from './dto/event.dto';
+import { EventDto } from './events/dto/event.dto';
 
 @WebSocketGateway()
-export class EventsGateway {
+export class AppGateway {
   public static EVENT: string = 'last-event';
   public static MESSAGE: string = 'message';
 
@@ -12,15 +12,15 @@ export class EventsGateway {
 
   handleConnection(socket: Socket, ...args: any[]) {
     const ip = socket.client.conn.remoteAddress;
-    this.server.emit(EventsGateway.EVENT, `Welcome @${socket.id} on @${ip} !`)
+    this.server.emit(AppGateway.EVENT, `Welcome @${socket.id} on @${ip} !`)
   }
 
-  @SubscribeMessage(EventsGateway.MESSAGE)
+  @SubscribeMessage(AppGateway.MESSAGE)
   handleMessage(@MessageBody() message: string): string {
     return 'OK';
   }
 
-  @SubscribeMessage(EventsGateway.EVENT)
+  @SubscribeMessage(AppGateway.EVENT)
   handleEvent(
     @MessageBody() data: string,
     @ConnectedSocket() client: Socket
@@ -30,10 +30,10 @@ export class EventsGateway {
 
   handleDisconnect(socket: Socket) {
     const ip = socket.client.conn.remoteAddress;
-    this.server.emit(EventsGateway.EVENT, `@${socket.id} --> gone`)
+    this.server.emit(AppGateway.EVENT, `@${socket.id} --> gone`)
   }
 
   broadcast(event : EventDto){
-    this.server.emit(EventsGateway.EVENT, event);
+    this.server.emit(AppGateway.EVENT, event);
   }
 }

@@ -5,8 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GamesModule } from './games/games.module';
 import { HintsModule } from './hints/hints.module';
-import { EventsModule } from './events/events.module';
-import { EventsGateway } from './events/events.gateway';
+import { AppGateway } from './app.gateway';
 
 @Module({
   imports: [
@@ -25,8 +24,8 @@ import { EventsGateway } from './events/events.gateway';
     }),
     GamesModule,
     HintsModule
-  , EventsModule],
+  ],
   controllers: [AppController],
-  providers: [AppService, EventsGateway],
+  providers: [AppService, AppGateway],
 })
 export class AppModule { }

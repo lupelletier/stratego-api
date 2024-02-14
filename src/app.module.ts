@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { EventsGateway } from './events/events.gateway';
+import { EventsModule } from './events/events.module';
 import { GamesModule } from './games/games.module';
 import { HintsModule } from './hints/hints.module';
 import { AppGateway } from './app.gateway';

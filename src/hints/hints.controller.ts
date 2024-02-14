@@ -1,60 +1,201 @@
 import { Controller, Get } from '@nestjs/common';
 import { CreateHintsDto } from './dto/hints.dto';
+import { Piece } from './dto/pieces.dto';
 
 @Controller('hints')
 export class HintsController {
-    private static readonly piecesNames: string[] = [
-        'M', 'G', 'C', 'C', 'M', 'M', 'M', 'C', 'C', 'C', 'C', 'L', 'L', 'L', 'L', 'S', 'S', 'S', 'S', 'M', 'M', 'M', 'M', 'M', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'B', 'B', 'B', 'B', 'B', 'B', 'F'
-    ];
+    private static readonly pieces: Piece[][] =
+        [
+            [
+                // 
+                { name: 'Dem', points: 3 },
+                { name: 'Dem', points: 3 },
+                { name: 'Boom', points: 0 },
+                { name: 'Drap', points: 0 },
+                { name: 'Boom', points: 0 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Boom', points: 0 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ecl', points: 2 },
+                // 
+                // 10
+                // 
+                { name: 'Ser', points: 4 },
+                { name: 'Cap', points: 6 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Boom', points: 0 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Col', points: 8 },
+                { name: 'Com', points: 7 },
+                { name: 'Ser', points: 4 },
+                { name: 'Boom', points: 0 },
+                { name: 'Ser', points: 4 },
+                // 
+                // 20
+                //
+                { name: 'Ecl', points: 2 },
+                { name: 'Col', points: 8 },
+                { name: 'Com', points: 7 },
+                { name: 'Com', points: 7 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Gén', points: 9 },
+                { name: 'Esp', points: 1 },
+                { name: 'Boom', points: 0 },
+                { name: 'Ser', points: 4 },
+                { name: 'Lieut', points: 5 },
+                //
+                // 30
+                //
+                { name: 'Cap', points: 6 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Mar', points: 10 },
+                { name: 'Dem', points: 3 },
+                { name: 'Cap', points: 6 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Cap', points: 6 },
+                //
+            ],
+            [
+                { name: 'Cap', points: 6 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ser', points: 4 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Boom', points: 0 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Com', points: 7 },
+                { name: 'Gén', points: 9 },
+                { name: 'Com', points: 7 },
+                { name: 'Boom', points: 0 },
+
+                { name: 'Ecl', points: 2 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Ser', points: 4 },
+                { name: 'Dem', points: 3 },
+                { name: 'Dem', points: 3 },
+                { name: 'Boom', points: 0 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Col', points: 8 },
+                { name: 'Esp', points: 1 },
+                { name: 'Lieut', points: 5 },
+
+                { name: 'Ecl', points: 2 },
+                { name: 'Com', points: 7 },
+                { name: 'Dem', points: 3 },
+                { name: 'Cap', points: 6 },
+                { name: 'Col', points: 8 },
+                { name: 'Ser', points: 4 },
+                { name: 'Com', points: 7 },
+                { name: 'Boom', points: 0 },
+                { name: 'Dem', points: 3 },
+                { name: 'Drap', points: 0 },
+
+                { name: 'Ser', points: 4 },
+                { name: 'Mar', points: 10 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Cap', points: 6 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Col', points: 8 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Gén', points: 9 },
+                { name: 'Boom', points: 0 },
+            ],
+            [
+                { name: 'Ser', points: 4 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Cap', points: 6 },
+                { name: 'Com', points: 7 },
+                { name: 'Com', points: 7 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Cap', points: 6 },
+                { name: 'Ser', points: 4 },
+                { name: 'Drap', points: 0 },
+
+                { name: 'Ecl', points: 2 },
+                { name: 'Boom', points: 0 },
+                { name: 'Lieut', points: 5 },
+                { name: 'Col', points: 8 },
+                { name: 'Ser', points: 4 },
+                { name: 'Dem', points: 3 },
+                { name: 'Com', points: 7 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Dem', points: 3 },
+                { name: 'Gén', points: 9 },
+
+                { name: 'Ecl', points: 2 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Boom', points: 0 },
+                { name: 'Cap', points: 6 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Dem', points: 3 },
+                { name: 'Dem', points: 3 },
+                { name: 'Boom', points: 0 },
+                { name: 'Col', points: 8 },
+
+                { name: 'Com', points: 7 },
+                { name: 'Mar', points: 10 },
+                { name: 'Dem', points: 3 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Boom', points: 0 },
+                { name: 'Cap', points: 6 },
+                { name: 'Esp', points: 1 },
+                { name: 'Ecl', points: 2 },
+                { name: 'Ser', points: 4 },
+                { name: 'Dem', points: 3 },
+            ]
+
+        ]
 
     @Get()
     generateBoard(): CreateHintsDto[][] {
         // Crée un tableau bidimensionnel pour représenter le plateau de jeu
         const board: CreateHintsDto[][] = [];
 
-        // Fonction de permutation Fisher-Yates pour mélanger les piècesNames
-        const shuffleArray = (array: any[]) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        };
-
-        // Mélange les piècesNames pour les répartir aléatoirement sur le plateau
-        shuffleArray(HintsController.piecesNames);
-
         // Index utilisé pour suivre la position actuelle dans piecesNames
         let index = 0;
 
+        let indexBoard = 0;
+        indexBoard = Math.round(Math.random() * 2);
+        console.log(indexBoard);
+
+        let selectedTable;
+
+        switch (indexBoard) {
+            case 0:
+                selectedTable = HintsController.pieces[0];
+                break;
+            case 1:
+                HintsController.pieces[1];
+                selectedTable = HintsController.pieces[1];
+                break;
+            case 2:
+                HintsController.pieces[2];
+                selectedTable = HintsController.pieces[2];
+                break;
+            default:
+                console.log(`Sorry`);
+        }
         // Boucle pour remplir le tableau bidimensionnel avec les pièces
-        for (let i = 0; i < 4; i++) {
-            board[i] = [];
-            for (let j = 0; j < 10; j++) {
-                let pieceDto: CreateHintsDto;
-
-                if (HintsController.piecesNames[index] === 'F') {
-                    // Place le drapeau sur la dernière ligne
-                    pieceDto = { row: 3, col: j, piece: 'F' };
-                    // Place des bombes autour du drapeau
-                    if (board[2]) board[2][j - 1] = { row: 2, col: j - 1, piece: 'B' };
-                    if (board[2]) board[2][j + 1] = { row: 2, col: j + 1, piece: 'B' };
-                    if (board[3]) board[3][j - 1] = { row: 3, col: j - 1, piece: 'B' };
-                    if (board[3]) board[3][j + 1] = { row: 3, col: j + 1, piece: 'B' };
-                } else {
-                    // Crée un objet CreateHintsDto pour représenter une pièce
-                    pieceDto = { row: i, col: j, piece: HintsController.piecesNames[index] };
-                }
-
+        for (let row = 0; row < 4; row++) {
+            board[row] = [];
+            for (let col = 0; col < 10; col++) {
+                const pieceDto: CreateHintsDto = {
+                    row: row,
+                    col: col,
+                    piece: selectedTable[index]
+                };
                 // Assignation de la pièce à la position actuelle dans le tableau
-                if (board[i]) board[i][j] = pieceDto;
-
+                board[row][col] = pieceDto;
                 // Incrémente l'index, en bouclant si nécessaire
-                index = (index + 1) % HintsController.piecesNames.length;
+                index = (index + 1) % selectedTable.length;
             }
-        } 
-
-        // Affiche la longueur du tableau piecesNames dans la console
-        console.log(HintsController.piecesNames.length);
+        }
 
         // Renvoie le tableau bidimensionnel représentant le plateau de jeu
         return board;

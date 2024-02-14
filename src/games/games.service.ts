@@ -4,10 +4,14 @@ import { Repository } from 'typeorm';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game } from './entities/game.entity';
+import { AppGateway } from 'src/app.gateway';
 
 @Injectable()
 export class GamesService {
-  constructor(@InjectRepository(Game) private data: Repository<Game>) { }
+  constructor(
+    @InjectRepository(Game) private data: Repository<Game>,
+    private gateway: AppGateway
+    ) {}
 
   async create(dto: CreateGameDto): Promise<Game> {
     try {
@@ -15,6 +19,7 @@ export class GamesService {
     } catch (e) {
       throw new ConflictException();
     }
+
   }
 
   findAll(): Promise<Game[]> {
